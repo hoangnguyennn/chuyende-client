@@ -1,0 +1,76 @@
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
+
+export const CartContext = React.createContext();
+export const CartProvider = ({ children }) => {
+  const initialCart = JSON.parse(localStorage.getItem("cart") || "[]");
+  const [cart, setCart] = useState(initialCart);
+  const [isInProcess, setInProcess] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
+
+  const addToCart = async (productId) => {
+    if (isInProcess) {
+      return toast.error("Thao tác quá nhanh, vui lòng thử lại");
+    }
+
+    setInProcess(true);
+    let product;
+    try {
+      product = await axios
+        .get(`/api/products/${productId}`)
+        .then((res) => res.data)
+        .then((res) => res.data);
+    } catch (e) {
+      console.log(e.response);
+      setInProcess(false);
+      return toast.error("Không tìm thấy sản phẩm");
+    }
+
+    if (product.status === "Stop business") {
+      setInProcess(false);
+      return toast.error("Sản phẩm hiện tại không còn kinh doanh");
+    }
+
+    if (product.quantity === 0) {
+      setInProcess(false);
+      return toast.error("Sản phẩm hiện hết hàng");
+    }
+
+    const pos = cart.map((item) => item.productId).indexOf(productId);
+    if (pos === -1) {
+      setCart([...cart, { productId, amount: 1 }]);
+      setInProcess(false);
+      return toast.success("Thêm vào giỏ hàng thành công");
+    }
+
+    if (cart[pos].amount >= 5) {
+      setInProcess(false);
+      return toast.error("Chỉ mua tối đa 5 sản phẩm mỗi lần");
+    }
+
+    if (product.quantity > cart[pos].amount) {
+      setCart([
+        ...cart.slice(0, pos),
+        {
+          ...cart[pos],
+          amount: cart[pos].amount + 1
+        },
+        ...cart.slice(pos + 1)
+      ]);
+      setInProcess(false);
+      return toast.success("Thêm vào giỏ hàng thành công");
+    }
+
+    setInProcess(false);
+    return toast.error(`Hiện tại chỉ còn ${product.quantity} sản phẩm`);
+  };
+
+  const context = { cart, addToCart };
+  return (
+    <CartContext.Provider value={context}>{children}</CartContext.Provider>
+  );
+};

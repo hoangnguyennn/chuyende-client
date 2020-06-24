@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { ProductSummaryStyled } from "./styles";
 import Button from "../../Button";
+
+import { CartContext } from "../../../contexts/cart.context";
 
 import { toVND } from "../../../helpers/formatter";
 import { discount, saving } from "../../../helpers/calculator";
 
 const ProductSummary = ({ product }) => {
   const {
+    id,
     image,
     name,
     price,
@@ -25,6 +28,8 @@ const ProductSummary = ({ product }) => {
     status,
     highlightFeature
   } = product;
+
+  const { addToCart } = useContext(CartContext);
 
   return (
     <ProductSummaryStyled>
@@ -73,7 +78,7 @@ const ProductSummary = ({ product }) => {
         </div>
         <div className="action-wrapper">
           {status === "Selling" && (
-            <Button color="danger" shadow>
+            <Button color="danger" shadow onClick={() => addToCart(id)}>
               Chọn mua
             </Button>
           )}

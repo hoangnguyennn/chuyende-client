@@ -1,12 +1,15 @@
 import React from "react";
+import { ToastContainer } from "react-toastify";
 
 import Routes from "./routes";
+import { CartProvider } from "./contexts/cart.context";
 
 function App() {
   return (
-    <div>
+    <CartProvider>
       <Routes />
-    </div>
+      <ToastContainer />
+    </CartProvider>
   );
 }
 

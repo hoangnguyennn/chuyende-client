@@ -7,3 +7,11 @@ export const saving = (price, original) => {
   if (isNaN(price) || isNaN(original)) return null;
   return original - price;
 };
+
+export const cartAmount = (cart) => {
+  if (Array.isArray(cart)) {
+    return cart.reduce((total, item) => total + item.amount, 0);
+  }
+
+  return 0;
+};
