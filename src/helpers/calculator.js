@@ -15,3 +15,11 @@ export const cartAmount = (cart) => {
 
   return 0;
 };
+
+export const cartTotal = (cart) => {
+  if (Array.isArray(cart)) {
+    return cart.reduce((total, item) => total + item.amount * item.price, 0);
+  }
+
+  return 0;
+};
