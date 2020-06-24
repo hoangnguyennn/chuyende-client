@@ -1,12 +1,17 @@
 import React from "react";
 
 import Header from "../../Header";
+import Container from "../../Container";
+import { Section } from "../../Section";
 
 const MainLayout = ({ children }) => {
   return (
     <div>
       <Header />
-      {children}
+
+      <Section>
+        <Container>{children}</Container>
+      </Section>
     </div>
   );
 };
