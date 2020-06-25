@@ -3,6 +3,7 @@ import axios from "axios";
 import { SectionTitle } from "../components/Section/index";
 
 import CartWrapper from "../components/Cart/Wrapper";
+import CartEmpty from "../components/Cart/Empty";
 import { cartAmount } from "../helpers/calculator";
 import { CartContext } from "../contexts/cart.context";
 
@@ -43,7 +44,11 @@ const Cart = () => {
       <SectionTitle>
         Giỏ hàng <span>({cartAmount(cartInfo)} sản phẩm)</span>
       </SectionTitle>
-      <CartWrapper cartInfo={cartInfo} />
+      {cartAmount(cartInfo) ? (
+        <CartWrapper cartInfo={cartInfo} />
+      ) : (
+        <CartEmpty />
+      )}
     </div>
   );
 };
