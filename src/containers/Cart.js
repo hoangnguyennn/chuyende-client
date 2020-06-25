@@ -8,6 +8,7 @@ import { cartAmount } from "../helpers/calculator";
 import { CartContext } from "../contexts/cart.context";
 
 const Cart = () => {
+  document.title = "Giỏ hàng - Chuyên đề tốt nghiệp";
   const { cart, setCart } = useContext(CartContext);
   const [cartInfo, setCartInfo] = useState([]);
 

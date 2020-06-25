@@ -5,6 +5,7 @@ import { SectionTitle } from "../components/Section";
 import OrderedTable from "../components/OrderedTable";
 
 const MyOrder = () => {
+  document.title = "Đơn hàng của tôi - Chuyên đề tốt nghiệp";
   const [orders, setOrders] = useState(null);
 
   useEffect(() => {

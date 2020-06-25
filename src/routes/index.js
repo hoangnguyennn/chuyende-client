@@ -11,7 +11,8 @@ import {
   Cart,
   Shipping,
   Review,
-  MyOrder
+  MyOrder,
+  Search
 } from "../containers";
 import { CartProvider } from "../contexts/cart.context";
 import { AuthProvider } from "../contexts/auth.context";
@@ -24,6 +25,12 @@ const Routes = () => {
         <AuthProvider>
           <Switch>
             <PublicRoute path="/" exact component={Home} layout={MainLayout} />
+            <PublicRoute
+              path="/search"
+              exact
+              component={Search}
+              layout={MainLayout}
+            />
             <PublicRoute
               path="/products/:id"
               exact

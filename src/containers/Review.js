@@ -6,6 +6,7 @@ import CheckoutReviewForm from "../components/CheckoutReviewForm";
 import { CartContext } from "../contexts/cart.context";
 
 const Review = () => {
+  document.title = "Xác nhận và đặt hàng - Chuyên đề tốt nghiệp";
   const { cart, setCart } = useContext(CartContext);
   const [cartInfo, setCartInfo] = useState([]);
 

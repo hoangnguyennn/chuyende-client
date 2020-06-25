@@ -5,6 +5,7 @@ import { SectionTitle } from "../components/Section";
 import ProductList from "../components/Product/List";
 
 const Home = () => {
+  document.title = "Trang chủ - Chuyên đề tốt nghiệp";
   const [products, setProducts] = useState(null);
 
   useEffect(() => {
