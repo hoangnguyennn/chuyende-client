@@ -8,7 +8,7 @@ function App() {
   return (
     <CartProvider>
       <Routes />
-      <ToastContainer />
+      <ToastContainer autoClose={2000} />
     </CartProvider>
   );
 }

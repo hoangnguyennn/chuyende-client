@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { CartItemStyled } from "./styles";
+
+import { CartContext } from "../../../contexts/cart.context";
 
 import { toVND } from "../../../helpers/formatter";
 import { discount } from "../../../helpers/calculator";
 
 const CartItem = ({ product }) => {
   const { id, image, name, brandName, price, originalPrice, amount } = product;
+  const { removeFromCart, changeAmount } = useContext(CartContext);
 
   return (
     <CartItemStyled>
@@ -22,7 +25,7 @@ const CartItem = ({ product }) => {
             Thương hiệu: <span>{brandName}</span>
           </p>
           <div className="action-wrapper">
-            <span>Xóa</span>
+            <span onClick={() => removeFromCart(id)}>Xóa</span>
           </div>
         </div>
 
@@ -43,7 +46,7 @@ const CartItem = ({ product }) => {
         <div className="quantity-wrapper">
           <select
             defaultValue={amount}
-            // onChange={(e) => changeAmount(id, +e.target.value)}
+            onChange={(e) => changeAmount(id, +e.target.value)}
           >
             <option value={1}>1</option>
             <option value={2}>2</option>
