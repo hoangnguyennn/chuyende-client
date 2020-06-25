@@ -3,15 +3,18 @@ import axios from "axios";
 import { SectionTitle } from "../components/Section";
 import CheckoutReviewForm from "../components/CheckoutReviewForm";
 
+import { LoadingContext } from "../contexts/loading.context";
 import { CartContext } from "../contexts/cart.context";
 
 const Review = () => {
   document.title = "Xác nhận và đặt hàng - Chuyên đề tốt nghiệp";
+  const { setLoading } = useContext(LoadingContext);
   const { cart, setCart } = useContext(CartContext);
   const [cartInfo, setCartInfo] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
+      setLoading(true);
       const productsPromise = cart.map((item) =>
         axios
           .get(`/api/products/${item.productId}`)
@@ -33,10 +36,11 @@ const Review = () => {
         );
       }
       setCartInfo(products);
+      setLoading(false);
     }
 
     fetchData();
-  }, [cart, setCart]);
+  }, [cart, setCart, setLoading]);
 
   return (
     <div>

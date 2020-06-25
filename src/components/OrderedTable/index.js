@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Skeleton from "react-loading-skeleton";
 import { OrderedTableStyled } from "./styles";
 
 import { toVND, toNativeDate } from "../../helpers/formatter";
@@ -44,18 +45,38 @@ const OrderedTable = ({ orders }) => {
         ) : (
           <>
             <tr>
-              <td>Loading</td>
-              <td>Loading</td>
-              <td>Loading</td>
-              <td>Loading</td>
-              <td>Loading</td>
+              <td>
+                <Skeleton />
+              </td>
+              <td>
+                <Skeleton />
+              </td>
+              <td>
+                <Skeleton />
+              </td>
+              <td>
+                <Skeleton />
+              </td>
+              <td>
+                <Skeleton />
+              </td>
             </tr>
             <tr>
-              <td>Loading</td>
-              <td>Loading</td>
-              <td>Loading</td>
-              <td>Loading</td>
-              <td>Loading</td>
+              <td>
+                <Skeleton />
+              </td>
+              <td>
+                <Skeleton />
+              </td>
+              <td>
+                <Skeleton />
+              </td>
+              <td>
+                <Skeleton />
+              </td>
+              <td>
+                <Skeleton />
+              </td>
             </tr>
           </>
         )}

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const OrderSummary = styled.div`
   flex: 1;
@@ -36,4 +37,12 @@ const OrderSummary = styled.div`
   }
 `;
 
-export { OrderSummary as OrderSummaryStyled };
+const BtnEdit = styled(Link)`
+  display: flex;
+  padding: 8px 16px;
+  background-color: #dae1e7;
+  text-decoration: none;
+  border-radius: 6px;
+`;
+
+export { OrderSummary as OrderSummaryStyled, BtnEdit };

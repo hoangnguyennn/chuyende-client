@@ -5,11 +5,13 @@ import { toast } from "react-toastify";
 
 import { CartContext } from "./cart.context";
 import { AuthContext } from "./auth.context";
+import { LoadingContext } from "./loading.context";
 
 export const CheckoutContext = React.createContext();
 export const CheckoutProvider = ({ children }) => {
   const { cart, setCart } = useContext(CartContext);
   const { user } = useContext(AuthContext);
+  const { setLoading } = useContext(LoadingContext);
   const history = useHistory();
 
   let initialDelivery = {
@@ -39,16 +41,19 @@ export const CheckoutProvider = ({ children }) => {
   };
 
   const order = () => {
+    setLoading(true);
     let data = { ...delivery, details: cart };
     axios
       .post("/api/orders", data)
       .then(() => {
         setCart([]);
+        setLoading(false);
         history.push("/customer/order");
         return toast.success("Đặt hàng thành công");
       })
       .catch((e) => {
         console.log(e.response);
+        setLoading(false);
         return toast.error(e.response.data.message || "Đặt hàng thất bại");
       });
   };

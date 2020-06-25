@@ -6,13 +6,16 @@ import CartWrapper from "../components/Cart/Wrapper";
 import CartEmpty from "../components/Cart/Empty";
 import { cartAmount } from "../helpers/calculator";
 import { CartContext } from "../contexts/cart.context";
+import { LoadingContext } from "../contexts/loading.context";
 
 const Cart = () => {
   document.title = "Giỏ hàng - Chuyên đề tốt nghiệp";
   const { cart, setCart } = useContext(CartContext);
+  const { setLoading } = useContext(LoadingContext);
   const [cartInfo, setCartInfo] = useState([]);
 
   useEffect(() => {
+    setLoading(true);
     async function fetchData() {
       const productsPromise = cart.map((item) =>
         axios
@@ -35,10 +38,11 @@ const Cart = () => {
         );
       }
       setCartInfo(products);
+      setLoading(false);
     }
 
     fetchData();
-  }, [cart, setCart]);
+  }, [cart, setCart, setLoading]);
 
   return (
     <div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import ProductSummary from "../components/Product/Summary";
+import ProductSummaryLoader from "../components/Product/Summary/loader";
 
 const SingleProduct = () => {
   document.title = "Sản phẩm - Chuyên đề tốt nghiệp";
@@ -18,7 +19,15 @@ const SingleProduct = () => {
       });
   }, [id]);
 
-  return <ProductSummary product={product} />;
+  return (
+    <>
+      {Object.keys(product).length === 0 ? (
+        <ProductSummaryLoader />
+      ) : (
+        <ProductSummary product={product} />
+      )}
+    </>
+  );
 };
 
 export default SingleProduct;

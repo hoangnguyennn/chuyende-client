@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const ShippingAddress = styled.div`
   flex: 1;
@@ -35,4 +36,12 @@ const ShippingAddress = styled.div`
   }
 `;
 
-export { ShippingAddress as ShippingAddressStyled };
+const BtnEdit = styled(Link)`
+  display: flex;
+  padding: 8px 16px;
+  background-color: #dae1e7;
+  text-decoration: none;
+  border-radius: 6px;
+`;
+
+export { ShippingAddress as ShippingAddressStyled, BtnEdit };
