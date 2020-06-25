@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { CartContext } from "./cart.context";
@@ -10,6 +11,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(initialUser);
   const [isOpen, setOpen] = useState(false);
   const { setCart } = useContext(CartContext);
+  const history = useHistory();
 
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(user));
@@ -44,7 +46,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setUser({});
     setCart([]);
-    return axios.post("/api/auth/logout").then(true, false);
+    return axios.post("/api/auth/logout").then(() => history.push("/"));
   };
 
   const context = { user, login, loginByToken, logout, isOpen, setOpen };
